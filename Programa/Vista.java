@@ -44,8 +44,9 @@ public class Vista {
 
     // SE PIDEN COORDENADAS AL USUARIO PARA HACER UNA JUGADA
     public int[] solicitarCoordenadas(String numJugada, int dimension){
-        boolean bandera = true;
-        while (bandera) {
+        int[] coordenadas = new int[2];
+        boolean entradaValida = false;
+        do{
             try{
                 System.out.print("INGRESE la FILA de la " + numJugada + " ficha: ");
                 int fila = scanner.nextInt();
@@ -55,7 +56,11 @@ public class Vista {
 
                 // verificar que las cords estén dentro del tablero
                 if (fila >= 0 && fila < dimension && columna >= 0 && columna <dimension) {
-                    return new int[]{fila, columna};
+                    coordenadas[0] = fila;
+                    coordenadas[1] = columna;
+
+                    // cambiar bandera
+                    entradaValida = true;
                 } else {
                     System.out.println("ERROR: coordenadas fuera del rango del tablero. intente otra vez.");
                 }
@@ -63,13 +68,53 @@ public class Vista {
                 System.out.println("ERROR: debe ingresar un número entero. intente otra vez");
                 scanner.nextLine(); // limpiar
             }
-        }
+        } while (!entradaValida);
+
+        return coordenadas;
     }
 
     public boolean preguntarJugarDeNuevo(){
         System.out.println("\n Quieren jugar de nuevo? (s/n): ");
         String respuesta = scanner.nextLine().trim().toLowerCase();
         return respuesta.equals("s");
+    }
+
+// SOLICITUD DE INFORMACIÓN INICIAL DEL JUEGO
+    public String[] solicitarNombresJugadores() {
+        mostrarMensaje("--- CONFIGURACIÓN DE LA PARTIDA ---");
+        System.out.print("Ingrese el nombre del Jugador 1: ");
+        String nombre1 = scanner.nextLine();
+        System.out.print("Ingrese el nombre del Jugador 2: ");
+        String nombre2 = scanner.nextLine();
+        return new String[]{nombre1, nombre2};
+    }
+
+    
+    public int solicitarDimensionTablero() {
+        int dimension = 0;
+        boolean entradaValida = false;
+
+        //  bucle do-while para evitar usar while(true)
+        do {
+            try {
+                System.out.print("Ingrese la dimensión del tablero (ejemplo: 4 para 4x4). Debe ser un número par: ");
+                dimension = scanner.nextInt();
+                scanner.nextLine(); // Limpiar
+
+                // Validación
+                if (dimension > 0 && dimension % 2 == 0) {
+                    entradaValida = true; // Si es válido se cambia la bander y fin
+                } else {
+                    mostrarMensaje("Error: La dimensión debe ser un número par y positivo. Intente de nuevo.");
+                }
+
+            } catch (InputMismatchException e) {
+                mostrarMensaje("Error: Debe ingresar un número entero. Intente de nuevo.");
+                scanner.nextLine(); // Limpiar el buffer si la entrada fue incorrecta
+            }
+        } while (!entradaValida);
+
+        return dimension;
     }
 }
 
