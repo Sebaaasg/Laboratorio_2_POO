@@ -28,7 +28,7 @@ public class Tablero {
     // LÓGICA PARA LAS FICHAS: crear los pares, aleatorizar su orden y ponerlas en el tablero
     private void inicializarFichas(){
         // SIMBOLOS
-        ArrayList<String> simbolosBase = new ArrayList<>(Arrays.asList("😊", "😶‍🌫️", "🚗", "🫘", "🥑", "🍨", "🍝", "🍚", "🍥", "🧀", "🥫", "💎", "🍔", "🍟", "🌭", "🎗️", "🎃", "🎈"));
+        ArrayList<String> simbolosBase = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R"));
 
         int numeroDePares = (dimension * dimension) / 2;
         ArrayList<String> simbolosParaJuego = new ArrayList<>(); 
